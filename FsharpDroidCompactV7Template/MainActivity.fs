@@ -14,12 +14,10 @@ open Android.Support.V4.Widget
 open Android.Support.Design.Widget
 
 [<Activity (Label = "FSharpDroidCompactV7", MainLauncher = true, Icon = "@mipmap/icon")>]
-type MainActivity () as this =
+type MainActivity () =
     inherit AppCompatActivity ()
 
     let mutable drawerLayout:DrawerLayout = null
-    let ip="169.254.80.80"
-    let mutable actualView=""
     let mutable mainContainer:  FrameLayout=null
 
     let replaceView view (container: FrameLayout)=
@@ -81,7 +79,11 @@ type MainActivity () as this =
         ///Setup my stuff
         ///----------------------------------------------------------
         mainContainer <- this.FindViewById<FrameLayout>(Resource_Id.main_layout)
-        ViewManager.LoadView this 
+        let vm1=new View_Model1()
+        ViewManager.LoadView<View_Home> this vm1
+        ViewManager.LoadView<View_View1> this vm1
+        ViewManager.LoadView<View_View2> this vm1
+        vm1.MyFinalize()
         ()
 
     override this.OnCreateOptionsMenu(menu)=
