@@ -23,10 +23,10 @@ namespace Easysoft
     #nowarn "51" // address-of operator can occur in the code
     #nowarn "1183" // unused 'this' reference
     
-    exception ReturnException920849ff296b43a887c9f4b4d576206e of obj
-    exception ReturnNoneException920849ff296b43a887c9f4b4d576206e
+    exception ReturnExceptionf3ee52d551314e5795d413572e1701d4 of obj
+    exception ReturnNoneExceptionf3ee52d551314e5795d413572e1701d4
     [<AutoOpen>]
-    module FuncConvertFinalOverload920849ff296b43a887c9f4b4d576206e =
+    module FuncConvertFinalOverloadf3ee52d551314e5795d413572e1701d4 =
       // This extension member adds to the FuncConvert type and is the last resort member in the method overloading rules. 
       type global.Microsoft.FSharp.Core.FuncConvert with
           /// A utility function to convert function values from tupled to curried form

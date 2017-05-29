@@ -13,12 +13,17 @@ open Android.Support.V7.Widget
 open Android.Support.V4.Widget
 open Android.Support.Design.Widget
 
+open Newtonsoft.Json
+
 [<Activity (Label = "FSharpDroidCompactV7", MainLauncher = true, Icon = "@mipmap/icon")>]
 type MainActivity () =
     inherit AppCompatActivity ()
 
     let mutable drawerLayout:DrawerLayout = null
     let mutable mainContainer:  FrameLayout=null
+
+
+    let mutable vm1: View_Model1 = new View_Model1()
 
     let replaceView view (container: FrameLayout)=
         container.RemoveAllViews()
@@ -33,6 +38,10 @@ type MainActivity () =
 
     override this.OnCreate (bundle) =
         base.OnCreate (bundle)
+
+        //Restore previous data
+        if bundle <> null then
+            vm1 <- JsonConvert.DeserializeObject<View_Model1>(bundle.GetString("vm1"))
 
         // Set our view from the "main" layout resource
         this.SetContentView (Resource_Layout.Main)
@@ -79,12 +88,24 @@ type MainActivity () =
         ///Setup my stuff
         ///----------------------------------------------------------
         mainContainer <- this.FindViewById<FrameLayout>(Resource_Id.main_layout)
-        let vm1=new View_Model1()
         ViewManager.LoadView<View_Home> this vm1
         ViewManager.LoadView<View_View1> this vm1
         ViewManager.LoadView<View_View2> this vm1
-        vm1.MyFinalize()
+        vm1.MyFinalize<View_Model1>()
+
+        //Show first view
+        this.ShowView<View_View1>()
+
+        Console.WriteLine("---------------------------------------ACTIVITY CREATED!!!!!!!!!!!!!")
         ()
+
+    override this.OnDestroy()=
+        base.OnDestroy()
+        Console.WriteLine("ACTIVITY DESTROYED!!!!!!!!!!!!!")
+        vm1.Dispose()
+
+    override this.OnSaveInstanceState(bundle)=
+        bundle.PutString("vm1",JsonConvert.SerializeObject(vm1))
 
     override this.OnCreateOptionsMenu(menu)=
         this.MenuInflater.Inflate(Resource_Menu.menu_toolbar,menu)

@@ -32,7 +32,7 @@ type View_View1(ctx  , vm: View_Model1)=
         let tv1=V<TextView> ctx  LL_PARS_WC LL_PARS_WC :?> TextView
         tv1.Text <- "This is a test"
 
-        this.Bind vm <@ vm.Text1 @> tv1 <@ tv1.Text @> tv1.TextChanged
+        this.Bind vm <@ vm.Text1 @> tv1 <@ tv1.Text @> tv1.TextChanged None None
 
         let tv2=V<TextView> ctx  LL_PARS_WC LL_PARS_WC :?> TextView
         tv2.Text <- "This is a test 2"
@@ -51,7 +51,7 @@ type View_View2(ctx , vm: View_Model1)=
 
         let te1=V<EditText> ctx LL_PARS_MP LL_PARS_WC :?> EditText
         te1.Text <- "type here..."
-        this.Bind vm <@ vm.Text1 @> te1 <@ te1.Text @> te1.TextChanged
+        this.Bind vm <@ vm.Text1 @> te1 <@ te1.Text @> te1.TextChanged None None
         
         let bt1=V<Button> ctx LL_PARS_MP LL_PARS_WC :?> Button
         bt1.Text <- "My Button"
